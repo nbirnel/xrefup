@@ -1,0 +1,44 @@
+#!/bin/ruby
+
+def usage(s)
+    $stderr.puts(s)
+    $stderr.puts("Usage: #{File.basename($0)}: -f XREF [OPTIONS] file ...")
+    exit(2)
+end
+
+$delim = ","
+#$replace_op = "literal"
+
+loop { case ARGV[0]
+#    when '-r'  then ARGV.shift; $replace_op = "regex"  #FIXME not implemented
+    when '-d'  then ARGV.shift; $delim = ARGV.shift
+    when '-f'  then ARGV.shift; $xref_file = ARGV.shift
+    when /--/  then ARGV.shift; break
+    when /^-/  then usage("Unknown option: #{ARGV[0].inspect}")
+    else break
+end; }
+
+unless defined? $xref_file
+    usage('Please select a cross-reference file.')
+end
+
+unless File.exists?($xref_file)
+    usage("Cross-reference file \"#{$xref_file}\" doesn't seem to exist.")
+end
+
+$xref = Hash.new
+
+File.open($xref_file).each do |line|
+    old,new = line.chomp.split($delim)
+    $xref[old] = new
+end
+
+while line = gets() do
+    $xref.each do |old, new|
+        line = line.gsub(old, new)
+    end
+    puts line
+end
+
+
+

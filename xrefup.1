@@ -1,0 +1,33 @@
+.TH xrefup 1 xrefup\-0.0.1
+.SH NAME
+xrefup \- global search and replace per a cross-reference
+.SH SYNOPSIS
+.B xrefup -f XREF [OPTIONS] [FILE...]
+.SH DESCRIPTION
+.B xrefup
+uses a file 
+.B XREF
+, delimited by commas by default,
+as a cross-reference list for updating
+.B FILE
+or standard in.
+The results are printed to standard out.
+.SH OPTIONS
+.LP
+.B -d DELIMITER
+use
+.B DELIMITER 
+instead of default `,' when parsing 
+.B XREF
+file.
+.SH EXAMPLES
+.B xrefup -f xref.csv oldmetadata.csv >newmetadata.csv
+.SH SEE ALSO
+.B ruby(1)
+.SH BUGS
+Collisions are not checked or prevented.
+Probably others.
+.SH LICENSE
+Copyright 2013 
+.sp
+You may use this software however you like.
