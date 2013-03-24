@@ -1,0 +1,8 @@
+To install, do
+   make
+
+That's all. By default, the prefix is /usr/local. If you want your installed 
+files elsewhere, do
+  make PREFIX=/opt/local
+
+or whatever is appropriate for your system.
