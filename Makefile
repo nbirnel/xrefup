@@ -13,4 +13,12 @@ deinstall :
 	rm -f ${DESTDIR}${PREFIX}/bin/$(PROG)
 	rm -f ${DESTDIR}${PREFIX}/man/man1/$(PROG).1
 
-.PHONY : deinstall install
+readme :: README.md
+
+README.md :: ${PROG}.1
+	groff -tman -Thtml $? | sed '/<html/,$$!d; /<style/,/<\/style>/d' >$@
+
+clean ::
+	rm -f README.md
+
+.PHONY : deinstall install readme clean
